@@ -1,0 +1,57 @@
+services:
+  # NestJS API Backend
+  - type: web
+    name: weatherguard-api
+    runtime: node
+    plan: free
+    repo: https://github.com/Priyanshu2404/weatherguard.git
+    branch: main
+    rootDir: api
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        value: https://weatherguard-admin.onrender.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        value: https://weatherguard-api.onrender.com/api/auth/google/callback
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GITHUB_CALLBACK_URL
+        value: https://weatherguard-api.onrender.com/api/auth/github/callback
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OPENWEATHER_API_KEY
+        sync: false
+
+  # React Admin Frontend (Static Site)
+  - type: web
+    name: weatherguard-admin
+    runtime: static
+    plan: free
+    repo: https://github.com/Priyanshu2404/weatherguard.git
+    branch: main
+    rootDir: admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://weatherguard-api.onrender.com
