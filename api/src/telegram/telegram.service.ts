@@ -27,14 +27,20 @@ export class TelegramService implements OnModuleInit {
 
     this.registerHandlers();
 
-    this.bot.launch().catch((err) => {
-      this.logger.error('Failed to launch Telegram bot', err);
-    });
+    if (process.env.NODE_ENV === 'production') {
+      this.logger.log('Telegram running in webhook mode');
+    } else {
+      this.bot.launch().catch((err) => {
+        this.logger.error('Failed to launch Telegram bot', err);
+      });
+      process.once('SIGINT', () => this.bot.stop('SIGINT'));
+      process.once('SIGTERM', () => this.bot.stop('SIGTERM'));
+      this.logger.log('Telegram bot started in polling mode');
+    }
+  }
 
-    process.once('SIGINT', () => this.bot.stop('SIGINT'));
-    process.once('SIGTERM', () => this.bot.stop('SIGTERM'));
-
-    this.logger.log('Telegram bot started');
+  async handleUpdate(update: any): Promise<void> {
+    await this.bot.handleUpdate(update);
   }
 
   private registerHandlers() {
