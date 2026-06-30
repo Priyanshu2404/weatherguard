@@ -1,0 +1,9 @@
+# railway.toml — Railway deployment config for the NestJS API
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "node dist/main"
+healthcheckPath = "/api/health"
+restartPolicyType = "on_failure"

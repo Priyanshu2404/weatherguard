@@ -4,7 +4,6 @@ import { UsersModule } from '../users/users.module';
 import { WeatherModule } from '../weather/weather.module';
 import { TelegramModule } from '../telegram/telegram.module';
 
-// Expose a controller so the demo trigger can be called via HTTP
 import { Controller, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';

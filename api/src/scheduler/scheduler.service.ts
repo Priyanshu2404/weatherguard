@@ -14,7 +14,6 @@ export class SchedulerService {
     private readonly telegramService: TelegramService,
   ) {}
 
-  // Runs at 08:00 and 20:00 every day
   @Cron('0 8,20 * * *')
   async sendWeatherAlerts() {
     this.logger.log('Running scheduled weather alert job');
@@ -26,7 +25,6 @@ export class SchedulerService {
       return;
     }
 
-    // Deduplicate cities to minimise API calls
     const cityToUsers = new Map<string, typeof users>();
     for (const user of users) {
       const city = user.city!;
@@ -50,7 +48,6 @@ export class SchedulerService {
     this.logger.log(`Weather alert job complete. Processed ${users.length} user(s)`);
   }
 
-  // Manual trigger endpoint helper — useful for demos and testing
   async triggerNow() {
     await this.sendWeatherAlerts();
   }

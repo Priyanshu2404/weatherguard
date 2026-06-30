@@ -20,12 +20,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // --- Google ---
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  googleLogin() {
-    // Passport redirects to Google — no body needed
-  }
+  googleLogin() {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
@@ -37,12 +34,9 @@ export class AuthController {
     res.redirect(`${FRONTEND_URL}/dashboard`);
   }
 
-  // --- GitHub ---
   @Get('github')
   @UseGuards(AuthGuard('github'))
-  githubLogin() {
-    // Passport redirects to GitHub
-  }
+  githubLogin() {}
 
   @Get('github/callback')
   @UseGuards(AuthGuard('github'))
@@ -54,7 +48,6 @@ export class AuthController {
     res.redirect(`${FRONTEND_URL}/dashboard`);
   }
 
-  // --- Session ---
   @Post('logout')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)

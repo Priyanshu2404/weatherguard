@@ -80,7 +80,7 @@ export class TelegramService implements OnModuleInit {
     this.bot.command('setcity', async (ctx: Context) => {
       const text = ctx.message && 'text' in ctx.message ? ctx.message.text : '';
       const parts = text.trim().split(/\s+/);
-      parts.shift(); // remove command
+      parts.shift();
       const city = parts.join(' ');
 
       if (!city) {
@@ -116,9 +116,6 @@ export class TelegramService implements OnModuleInit {
     name: string,
     linkToken: string,
   ): Promise<void> {
-    // This method is called by UsersController; the actual delivery
-    // goes via the bot to any pre-existing chatId if available,
-    // or the token is just available in the dashboard for the user to copy.
     this.logger.log(
       `Approval notification prepared for ${email} — token: ${linkToken}`,
     );

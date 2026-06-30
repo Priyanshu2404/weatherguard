@@ -27,7 +27,6 @@ export default function App() {
     );
   }
 
-  // Not authenticated
   if (!user) {
     return (
       <Routes>
@@ -37,7 +36,6 @@ export default function App() {
     );
   }
 
-  // Authenticated but not yet approved
   if (user.status === 'pending') {
     return (
       <Routes>
@@ -47,7 +45,6 @@ export default function App() {
     );
   }
 
-  // Approved users
   return (
     <Routes>
       <Route

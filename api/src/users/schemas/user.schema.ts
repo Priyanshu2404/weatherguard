@@ -22,7 +22,6 @@ export class User {
   @Prop({ required: true, unique: true })
   email: string;
 
-  // Explicit type required — reflect-metadata cannot infer union types (string | null)
   @Prop({ type: String, default: null })
   avatar: string | null;
 
