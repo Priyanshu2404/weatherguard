@@ -3,7 +3,7 @@ services:
   - type: web
     name: weatherguard-api
     runtime: node
-    plan: free
+    plan: starter
     repo: https://github.com/Priyanshu2404/weatherguard.git
     branch: main
     rootDir: api
@@ -43,10 +43,8 @@ services:
         sync: false
 
   # React Admin Frontend (Static Site)
-  - type: web
+  - type: static
     name: weatherguard-admin
-    runtime: static
-    plan: free
     repo: https://github.com/Priyanshu2404/weatherguard.git
     branch: main
     rootDir: admin
