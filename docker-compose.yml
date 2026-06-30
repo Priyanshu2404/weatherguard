@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: weatherguard-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: weatherguard-api
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file: ./api/.env
+    depends_on:
+      - mongo
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: weatherguard-admin
+    restart: unless-stopped
+    ports:
+      - '5173:80'
+    depends_on:
+      - api
+
+volumes:
+  mongo-data:
